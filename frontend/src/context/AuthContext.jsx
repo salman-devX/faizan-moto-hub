@@ -34,12 +34,14 @@ export function AuthProvider({ children }) {
     const data = await api.post("/api/auth/login", { email, password });
     localStorage.setItem("fmw_token", data.token);
     await loadMe();
+    return data.user;
   };
 
   const register = async (fullName, phone, email, password) => {
     const data = await api.post("/api/auth/register", { fullName, phone, email, password });
     localStorage.setItem("fmw_token", data.token);
     await loadMe();
+    return data.user;
   };
 
   const signOut = () => {
