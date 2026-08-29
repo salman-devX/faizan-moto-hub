@@ -4,9 +4,11 @@ import { DEPTS, WORKSHOP, telHref, waHref } from "../lib/workshop";
 export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-card">
+      <div className="hazard-rule" aria-hidden="true" />
       <div className="container-page grid gap-10 py-14 md:grid-cols-4">
         <div>
-          <p className="font-display text-lg font-bold uppercase">
+          <p className="flex items-center gap-2 font-display text-lg font-bold uppercase">
+            <span className="stamp-badge h-8 w-8 text-[9px] font-bold">FMW</span>
             Faizan <span className="text-primary">Motor</span> Workshop
           </p>
           <p className="mt-3 text-sm text-muted-foreground">
@@ -31,7 +33,6 @@ export function SiteFooter() {
           <p className="eyebrow mb-3">Quick Links</p>
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li><Link to="/about" className="hover:text-foreground">About Us</Link></li>
-            <li><Link to="/gallery" className="hover:text-foreground">Gallery</Link></li>
             <li><Link to="/track" className="hover:text-foreground">Track Request</Link></li>
             <li><Link to="/contact" className="hover:text-foreground">Contact</Link></li>
           </ul>
@@ -47,7 +48,7 @@ export function SiteFooter() {
           </ul>
         </div>
       </div>
-      <div className="border-t border-border py-5 text-center text-xs text-muted-foreground">
+      <div className="border-t border-border py-5 text-center font-mono text-xs text-muted-foreground">
         © {new Date().getFullYear()} Faizan Motor Workshop. All rights reserved.
       </div>
     </footer>
