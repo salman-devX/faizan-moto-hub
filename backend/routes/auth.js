@@ -24,13 +24,12 @@ router.post("/register", async (req, res) => {
     "INSERT INTO users (id, full_name, email, phone, whatsapp, password_hash) VALUES (?,?,?,?,?,?)",
   ).run(id, fullName.trim(), email.trim().toLowerCase(), phone.trim(), phone.trim(), hash);
 
-  // First registered user ever becomes admin automatically; everyone else is a customer.
-  const userCount = db.prepare("SELECT COUNT(*) c FROM users").get().c;
-  const role = userCount === 1 ? "admin" : "customer";
-  db.prepare("INSERT INTO user_roles (id, user_id, role) VALUES (?,?,?)").run(uuid(), id, role);
+  // Every self-registered account is a plain customer. The only admin account
+  // is the fixed one seeded in db.js — nobody can become admin by registering.
+  db.prepare("INSERT INTO user_roles (id, user_id, role) VALUES (?,?,?)").run(uuid(), id, "customer");
 
   const token = signToken(id);
-  res.json({ token, user: { id, full_name: fullName.trim(), email: email.trim().toLowerCase(), roles: [role] } });
+  res.json({ token, user: { id, full_name: fullName.trim(), email: email.trim().toLowerCase(), roles: ["customer"] } });
 });
 
 router.post("/login", async (req, res) => {
