@@ -5,14 +5,14 @@ import { Button } from "../components/Button.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 
 export default function Auth() {
-  const { user, login, register } = useAuth();
+  const { user, isAdmin, login, register } = useAuth();
   const navigate = useNavigate();
   const [mode, setMode] = useState("login");
   const [form, setForm] = useState({ fullName: "", phone: "", email: "", password: "" });
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  if (user) return <Navigate to="/dashboard" replace />;
+  if (user) return <Navigate to={isAdmin ? "/admin" : "/dashboard"} replace />;
 
   const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
 
@@ -21,12 +21,14 @@ export default function Auth() {
     setError("");
     setBusy(true);
     try {
+      let loggedInUser;
       if (mode === "login") {
-        await login(form.email, form.password);
+        loggedInUser = await login(form.email, form.password);
       } else {
-        await register(form.fullName, form.phone, form.email, form.password);
+        loggedInUser = await register(form.fullName, form.phone, form.email, form.password);
       }
-      navigate("/dashboard");
+      const isAdmin = (loggedInUser?.roles || []).includes("admin");
+      navigate(isAdmin ? "/admin" : "/dashboard");
     } catch (e) {
       setError(e.message);
     } finally {
