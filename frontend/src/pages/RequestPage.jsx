@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate, useSearchParams, Link } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { PageHero } from "../components/PageHero.jsx";
 import { Button } from "../components/Button.jsx";
 import { MediaUploader } from "../components/MediaUploader.jsx";
+import { MediaGallery } from "../components/MediaGallery.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 import { api } from "../lib/api";
 import { DEPTS, isValidPkPhone } from "../lib/workshop";
@@ -31,6 +32,12 @@ export default function RequestPage() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState(null);
+  const [media, setMedia] = useState([]);
+
+  const loadMedia = async (requestId) => {
+    const m = await api.get(`/api/media/${requestId}`).catch(() => []);
+    setMedia(m);
+  };
 
   useEffect(() => {
     if (!form.dept) return setServices([]);
@@ -89,6 +96,18 @@ export default function RequestPage() {
             <p className="mt-4 text-sm text-muted-foreground">
               Save this code with your phone number to track progress anytime, or check it from "My Requests".
             </p>
+
+            <div className="mt-6 border-t border-border pt-6 text-left">
+              <p className="eyebrow mb-2">Photos / Video (optional)</p>
+              <p className="mb-3 text-sm text-muted-foreground">
+                Add photos of the damage or a short video of the problem so our team can prepare before you arrive.
+              </p>
+              <MediaGallery items={media} />
+              <div className="mt-3">
+                <MediaUploader requestId={result.id} onUploaded={() => loadMedia(result.id)} />
+              </div>
+            </div>
+
             <div className="mt-6 flex justify-center gap-3">
               <Button to="/dashboard">My Requests</Button>
               <Button to={`/track?code=${result.code}`} variant="outline">Track This Request</Button>
@@ -163,8 +182,7 @@ export default function RequestPage() {
             {busy ? "Submitting..." : "Submit Request"}
           </Button>
           <p className="text-center text-xs text-muted-foreground">
-            You can add photos or a video after the request is created — see it from{" "}
-            <Link to="/dashboard" className="text-primary">My Requests</Link>.
+            You'll be able to add photos or a video right after submitting.
           </p>
         </form>
       </section>
