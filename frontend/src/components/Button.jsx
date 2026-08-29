@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 
 const base =
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-semibold uppercase tracking-wide transition-colors disabled:opacity-50 disabled:pointer-events-none";
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-sm text-sm font-semibold uppercase tracking-wide transition-all disabled:opacity-50 disabled:pointer-events-none active:translate-y-px";
 
 const variants = {
-  default: "bg-primary text-white hover:bg-primary-dark",
-  outline: "border border-border bg-transparent text-foreground hover:bg-muted",
-  secondary: "bg-muted text-foreground hover:bg-muted/70",
+  default:
+    "bg-primary text-primary-foreground border border-primary-dark shadow-[inset_0_-2px_0_rgb(var(--primary-dark))] hover:bg-primary-dark",
+  outline: "border border-border bg-transparent text-foreground hover:border-primary hover:text-primary",
+  secondary: "bg-muted text-foreground border border-border hover:border-primary/50",
   ghost: "bg-transparent text-foreground hover:bg-muted",
 };
 
