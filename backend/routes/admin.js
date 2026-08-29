@@ -26,7 +26,7 @@ router.get("/roles", requireAuth, requireRole("admin"), (req, res) => {
 
 router.post("/roles", requireAuth, requireRole("admin"), (req, res) => {
   const { user_id, role } = req.body || {};
-  const validRoles = ["motor", "electrical", "denter", "painter", "admin"];
+  const validRoles = ["motor", "electrical", "denter", "painter"];
   if (!user_id || !validRoles.includes(role)) return res.status(400).json({ error: "Invalid user or role" });
   const exists = db.prepare("SELECT id FROM user_roles WHERE user_id = ? AND role = ?").get(user_id, role);
   if (exists) return res.status(400).json({ error: "This user already has that role" });
