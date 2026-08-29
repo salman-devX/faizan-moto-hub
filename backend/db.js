@@ -1,6 +1,7 @@
 const Database = require("better-sqlite3");
 const path = require("path");
 const { v4: uuid } = require("uuid");
+const bcrypt = require("bcryptjs");
 
 const db = new Database(path.join(__dirname, "fmw.db"));
 db.pragma("journal_mode = WAL");
@@ -83,15 +84,6 @@ CREATE TABLE IF NOT EXISTS staff_notes (
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
-CREATE TABLE IF NOT EXISTS gallery (
-  id TEXT PRIMARY KEY,
-  title TEXT NOT NULL,
-  image_url TEXT NOT NULL,
-  dept TEXT,
-  sort_order INTEGER NOT NULL DEFAULT 0,
-  created_at TEXT NOT NULL DEFAULT (datetime('now'))
-);
-
 CREATE TABLE IF NOT EXISTS testimonials (
   id TEXT PRIMARY KEY,
   name TEXT NOT NULL,
@@ -169,5 +161,30 @@ if (serviceCount === 0) {
 
   db.prepare("INSERT INTO request_seq (n) VALUES (0)").run();
 }
+
+// ---------- FIXED ADMIN ACCOUNT (only one admin ever exists) ----------
+const ADMIN_EMAIL = (process.env.ADMIN_EMAIL || "admin123@gmail.com").trim().toLowerCase();
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin1234";
+
+const existingAdmin = db.prepare("SELECT id FROM users WHERE email = ?").get(ADMIN_EMAIL);
+if (!existingAdmin) {
+  const adminId = uuid();
+  const adminHash = bcrypt.hashSync(ADMIN_PASSWORD, 10);
+  db.prepare(
+    "INSERT INTO users (id, full_name, email, phone, whatsapp, password_hash) VALUES (?,?,?,?,?,?)",
+  ).run(adminId, "Admin", ADMIN_EMAIL, "", "", adminHash);
+  db.prepare("INSERT INTO user_roles (id, user_id, role) VALUES (?,?,?)").run(uuid(), adminId, "admin");
+} else {
+  // Make sure this account always keeps admin role even if it was touched before.
+  const hasAdminRole = db.prepare("SELECT id FROM user_roles WHERE user_id = ? AND role = 'admin'").get(existingAdmin.id);
+  if (!hasAdminRole) {
+    db.prepare("INSERT INTO user_roles (id, user_id, role) VALUES (?,?,?)").run(uuid(), existingAdmin.id, "admin");
+  }
+}
+
+// Clean up any leftover admin roles from the old bug (any account other than
+// the fixed admin email that previously got auto-promoted to admin).
+const fixedAdminId = db.prepare("SELECT id FROM users WHERE email = ?").get(ADMIN_EMAIL)?.id;
+db.prepare("DELETE FROM user_roles WHERE role = 'admin' AND user_id != ?").run(fixedAdminId || "");
 
 module.exports = db;
