@@ -75,14 +75,14 @@ export default function Home() {
       <section className="border-y border-border bg-card">
         <div className="container-page grid gap-10 py-20 md:grid-cols-3">
           {[
-            { title: "Transparent Pricing", body: "No hidden charges. You approve the estimate before any work begins." },
-            { title: "Live Status Tracking", body: "Get a tracking ID for every request and follow progress from received to completed." },
-            { title: "Skilled Specialists", body: "Dedicated mechanics, electricians, denters and painters — each an expert in their department." },
+            { tag: "PRICING", title: "Transparent Pricing", body: "No hidden charges. You approve the estimate before any work begins." },
+            { tag: "TRACKING", title: "Live Status Tracking", body: "Get a tracking ID for every request and follow progress from received to completed." },
+            { tag: "STAFF", title: "Skilled Specialists", body: "Dedicated mechanics, electricians, denters and painters — each an expert in their department." },
           ].map((item, i) => (
             <Reveal key={item.title} delay={i * 100}>
               <div>
-                <span className="font-display text-3xl font-bold text-primary">0{i + 1}</span>
-                <h3 className="mt-3 font-display text-xl font-bold uppercase">{item.title}</h3>
+                <span className="stamp-badge h-12 px-3 text-[10px]">{item.tag}</span>
+                <h3 className="mt-4 font-display text-xl font-bold uppercase">{item.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{item.body}</p>
               </div>
             </Reveal>
@@ -113,7 +113,7 @@ export default function Home() {
       )}
 
       {/* CTA */}
-      <section className="bg-gradient-red">
+      <section className="bg-gradient-primary">
         <div className="container-page flex flex-col items-center gap-6 py-16 text-center">
           <h2 className="font-display text-2xl font-bold uppercase text-white md:text-4xl">
             Need Your Car Looked At Today?
