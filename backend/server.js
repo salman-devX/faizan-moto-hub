@@ -21,7 +21,6 @@ app.use("/api/requests", require("./routes/requests"));
 app.use("/api/notes", require("./routes/notes"));
 app.use("/api/media", require("./routes/media"));
 app.use("/api/track", require("./routes/track"));
-app.use("/api/gallery", require("./routes/gallery"));
 app.use("/api/testimonials", require("./routes/testimonials"));
 app.use("/api/admin", require("./routes/admin"));
 
