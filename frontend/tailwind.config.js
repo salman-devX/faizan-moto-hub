@@ -1,38 +1,44 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: ["selector", '[data-theme="dark"]'],
   content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     extend: {
       fontFamily: {
-        display: ["Oswald", "ui-sans-serif", "sans-serif"],
-        sans: ["Barlow", "ui-sans-serif", "sans-serif"],
+        display: ["'Big Shoulders Display'", "ui-sans-serif", "sans-serif"],
+        sans: ["'IBM Plex Sans'", "ui-sans-serif", "sans-serif"],
+        mono: ["'IBM Plex Mono'", "ui-monospace", "monospace"],
       },
       colors: {
-        background: "#ffffff",
-        foreground: "#0f172a",
-        card: "#f8fafc",
-        border: "#e2e8f0",
-        muted: "#f1f5f9",
-        "muted-foreground": "#64748b",
+        background: "rgb(var(--bg) / <alpha-value>)",
+        foreground: "rgb(var(--ink) / <alpha-value>)",
+        card: "rgb(var(--surface) / <alpha-value>)",
+        border: "rgb(var(--line) / <alpha-value>)",
+        muted: "rgb(var(--surface) / <alpha-value>)",
+        "muted-foreground": "rgb(var(--ink-muted) / <alpha-value>)",
         primary: {
-          DEFAULT: "#2563eb",
-          dark: "#1e3a8a",
+          DEFAULT: "rgb(var(--primary) / <alpha-value>)",
+          dark: "rgb(var(--primary-dark) / <alpha-value>)",
+          foreground: "rgb(var(--primary-foreground) / <alpha-value>)",
         },
-        accent: "#0ea5e9",
-        success: "#16a34a",
-        warning: "#d97706",
+        accent: "rgb(var(--accent) / <alpha-value>)",
+        "accent-soft": "rgb(var(--accent-soft) / <alpha-value>)",
+        success: "rgb(var(--accent) / <alpha-value>)",
+        warning: "#c9822a",
         whatsapp: "#25d366",
-        destructive: "#dc2626",
+        destructive: "rgb(var(--danger) / <alpha-value>)",
       },
       boxShadow: {
-        card: "0 18px 40px -22px rgba(15,23,42,0.18)",
-        glow: "0 0 0 1px rgba(37,99,235,0.25), 0 20px 50px -24px rgba(37,99,235,0.35)",
+        card: "0 1px 2px rgb(var(--ink) / 0.04), 0 12px 28px -18px rgb(var(--ink) / 0.22)",
+        stamp: "0 0 0 1px rgb(var(--primary) / 0.18)",
       },
       backgroundImage: {
-        "gradient-red": "linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%)",
-        "gradient-steel": "linear-gradient(160deg, #ffffff 0%, #f1f5f9 100%)",
+        "gradient-primary": "linear-gradient(135deg, rgb(var(--primary)) 0%, rgb(var(--primary-dark)) 100%)",
+        "gradient-steel": "linear-gradient(160deg, rgb(var(--bg)) 0%, rgb(var(--surface)) 100%)",
         "gradient-hero":
-          "linear-gradient(180deg, rgba(15,23,42,0.55) 0%, rgba(15,23,42,0.72) 55%, #ffffff 100%)",
+          "linear-gradient(0deg, rgb(var(--bg)) 2%, rgb(var(--ink) / 0.78) 45%, rgb(var(--ink) / 0.35) 100%)",
+        "hazard-stripes":
+          "repeating-linear-gradient(-45deg, rgb(var(--primary)) 0 14px, rgb(var(--ink)) 14px 28px)",
       },
       keyframes: {
         "fade-up": {
