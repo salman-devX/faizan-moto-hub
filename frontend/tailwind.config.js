@@ -36,7 +36,7 @@ export default {
         "gradient-primary": "linear-gradient(135deg, rgb(var(--primary)) 0%, rgb(var(--primary-dark)) 100%)",
         "gradient-steel": "linear-gradient(160deg, rgb(var(--bg)) 0%, rgb(var(--surface)) 100%)",
         "gradient-hero":
-          "linear-gradient(0deg, rgb(0 0 0 / 0.65) 0%, rgb(0 0 0 / 0.3) 50%, rgb(0 0 0 / 0.08) 100%)",
+          "linear-gradient(0deg, rgb(0 0 0 / 0.65) 2%, rgb(0 0 0 / 0.3) 50%, rgb(0 0 0 / 0.08) 100%)",
         "hazard-stripes":
           "repeating-linear-gradient(-45deg, rgb(var(--primary)) 0 14px, rgb(var(--ink)) 14px 28px)",
       },
