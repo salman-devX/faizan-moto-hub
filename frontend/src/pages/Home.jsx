@@ -5,6 +5,7 @@ import { Reveal } from "../components/Reveal.jsx";
 import { api } from "../lib/api";
 import { DEPTS, WORKSHOP, telHref, waHref } from "../lib/workshop";
 import heroImg from "../assets/hero-workshop.jpg";
+import heroVideo from "../assets/hero.mp4";
 import motorImg from "../assets/dept-motor.jpg";
 import electricalImg from "../assets/dept-electrical.jpg";
 import dentingImg from "../assets/dept-denting.jpg";
@@ -21,11 +22,11 @@ export default function Home() {
 
   return (
     <div>
-       {/* Hero */}
+      {/* Hero */}
       <section className="relative flex min-h-[80vh] items-end overflow-hidden bg-black">
         <video
           className="absolute inset-0 h-full w-full object-cover"
-          src="/videos/hero.mp4"
+          src={heroVideo}
           poster={heroImg}
           autoPlay
           muted
