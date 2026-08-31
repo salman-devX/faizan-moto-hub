@@ -21,9 +21,21 @@ export default function Home() {
 
   return (
     <div>
-      {/* Hero */}
-      <section className="relative flex min-h-[80vh] items-end overflow-hidden">
-        <img src={heroImg} alt="Faizan Motor Workshop" className="absolute inset-0 h-full w-full object-cover" />
+       {/* Hero */}
+      <section className="relative flex min-h-[80vh] items-end overflow-hidden bg-black">
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          src="/videos/hero.mp4"
+          poster={heroImg}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        >
+          {/* Fallback for browsers that can't play the video */}
+          <img src={heroImg} alt="Faizan Motor Workshop" className="h-full w-full object-cover" />
+        </video>
         <div className="absolute inset-0 bg-gradient-hero" />
         <div className="container-page relative z-10 pb-20 pt-40 text-white">
           <Reveal>
