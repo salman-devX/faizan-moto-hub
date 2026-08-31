@@ -9,6 +9,10 @@ const variants = {
   outline: "border border-border bg-transparent text-foreground hover:border-primary hover:text-primary",
   secondary: "bg-muted text-foreground border border-border hover:border-primary/50",
   ghost: "bg-transparent text-foreground hover:bg-muted",
+  // For use on a colored (bg-primary) section, e.g. the CTA band — solid white pill.
+  invert: "bg-white text-primary border border-white shadow-[inset_0_-2px_0_rgb(0_0_0_/_0.12)] hover:bg-white/90",
+  // For use on a colored (bg-primary) section — outlined, inverts to solid on hover.
+  invertOutline: "border-2 border-white bg-transparent text-white hover:bg-white hover:text-primary",
 };
 
 const sizes = {
