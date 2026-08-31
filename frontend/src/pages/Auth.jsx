@@ -40,15 +40,15 @@ export default function Auth() {
     <div>
       <PageHero eyebrow="Account" title={mode === "login" ? "Sign In" : "Create Account"} />
       <section className="container-page max-w-md py-16">
-        <form onSubmit={submit} className="surface-card space-y-4 rounded-lg p-6">
+        <form onSubmit={submit} autoComplete="off" className="surface-card space-y-4 rounded-lg p-6">
           {mode === "register" && (
             <>
-              <input className="input" placeholder="Full Name" value={form.fullName} onChange={set("fullName")} required />
-              <input className="input" placeholder="Phone (03XXXXXXXXX)" value={form.phone} onChange={set("phone")} required />
+              <input className="input" autoComplete="off" placeholder="Full Name" value={form.fullName} onChange={set("fullName")} required />
+              <input className="input" autoComplete="off" placeholder="Phone (03XXXXXXXXX)" value={form.phone} onChange={set("phone")} required />
             </>
           )}
-          <input className="input" type="email" placeholder="Email" value={form.email} onChange={set("email")} required />
-          <input className="input" type="password" placeholder="Password" value={form.password} onChange={set("password")} required />
+          <input className="input" type="email" autoComplete="off" name="fmw-email" placeholder="Email" value={form.email} onChange={set("email")} required />
+          <input className="input" type="password" autoComplete="new-password" name="fmw-password" placeholder="Password" value={form.password} onChange={set("password")} required />
 
           {error && <p className="text-sm font-semibold text-destructive">{error}</p>}
 
@@ -58,7 +58,11 @@ export default function Auth() {
 
           <button
             type="button"
-            onClick={() => setMode(mode === "login" ? "register" : "login")}
+            onClick={() => {
+              setMode(mode === "login" ? "register" : "login");
+              setForm({ fullName: "", phone: "", email: "", password: "" });
+              setError("");
+            }}
             className="w-full text-center text-sm text-muted-foreground hover:text-foreground"
           >
             {mode === "login" ? "New here? Create an account" : "Already have an account? Sign in"}
