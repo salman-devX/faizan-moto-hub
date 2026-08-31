@@ -119,10 +119,10 @@ export default function Home() {
             Need Your Car Looked At Today?
           </h2>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button to="/request" size="lg" className="bg-white text-primary hover:bg-white/90">
+            <Button to="/request" size="lg" variant="invert">
               Book Now
             </Button>
-            <Button href={telHref} size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+            <Button href={telHref} size="lg" variant="invertOutline">
               Call {WORKSHOP.phoneDisplay}
             </Button>
           </div>
